@@ -2,38 +2,13 @@ package PasetoBackend
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"os"
 
+	"github.com/aiteung/atdb"
 	"github.com/whatsauth/watoken"
+	"go.mongodb.org/mongo-driver/mongo"
 )
-
-func GCFHandler(MONGOCONNSTRINGENV, dbname, collectionname string) string {
-	mconn := SetConnection(MONGOCONNSTRINGENV, dbname)
-	datagedung := GetAllBangunanLineString(mconn, collectionname)
-	return GCFReturnStruct(datagedung)
-}
-
-func GCFPostCoordinateLonLat(MONGOCONNSTRINGENV, dbname, collectionname string, r *http.Request) string {
-	req := new(Credential)
-	conn := SetConnection(MONGOCONNSTRINGENV, dbname)
-	resp := new(CoorLonLatProperties)
-	err := json.NewDecoder(r.Body).Decode(&resp)
-	if err != nil {
-		req.Status = false
-		req.Message = "error parsing application/json: " + err.Error()
-	} else {
-		req.Status = true
-		Ins := InsertDataLonlat(conn, collectionname,
-			resp.Coordinates,
-			resp.Name,
-			resp.Volume,
-			resp.Type)
-		req.Message = fmt.Sprintf("%v:%v", "Berhasil Input data", Ins)
-	}
-	return GCFReturnStruct(req)
-}
 
 func GCFPostHandler(PASETOPRIVATEKEYENV, MONGOCONNSTRINGENV, dbname, collectionname string, r *http.Request) string {
 	var Response Credential
@@ -64,4 +39,11 @@ func GCFPostHandler(PASETOPRIVATEKEYENV, MONGOCONNSTRINGENV, dbname, collectionn
 func GCFReturnStruct(DataStuct any) string {
 	jsondata, _ := json.Marshal(DataStuct)
 	return string(jsondata)
+}
+
+func InsertUser(db *mongo.Database, collection string, userdata User) string {
+	hash, _ := HashPassword(userdata.Password)
+	userdata.Password = hash
+	atdb.InsertOneDoc(db, collection, userdata)
+	return "Ini username : " + userdata.Username + "ini password : " + userdata.Password
 }
