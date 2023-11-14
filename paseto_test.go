@@ -14,12 +14,12 @@ func TestGeneratePrivateKeyPaseto(t *testing.T) {
 	privateKey, publicKey := watoken.GenerateKey()
 	fmt.Println(privateKey)
 	fmt.Println(publicKey)
-	hasil, err := watoken.Encode("daffa", privateKey)
+	hasil, err := watoken.Encode("wegotour", privateKey)
 	fmt.Println(hasil, err)
 }
 func TestValidateToken(t *testing.T) {
-	tokenstring := "v4.public.eyJleHAiOiIyMDIzLTEwLTI2VDAwOjU5OjQyKzA3OjAwIiwiaWF0IjoiMjAyMy0xMC0yNVQyMjo1OTo0MiswNzowMCIsImlkIjoiZGFmZmEiLCJuYmYiOiIyMDIzLTEwLTI1VDIyOjU5OjQyKzA3OjAwIn0vVwSRywIoGrJC0wrQY-0IXISkClJ" // Gantilah dengan token PASETO yang sesuai
-	publicKey := "0cdc615519e70986f9821233fabe8e91ba3cc36486242a19801581d7c83fda5e"
+	tokenstring := "eyJleHAiOiIyMDIzLTEwLTI2VDA1OjAyOjQ1WiIsImlhdCI6IjIwMjMtMTAtMjZUMDM6MDI6NDVaIiwiaWQiOiJkYWZmYSIsIm5iZiI6IjIwMjMtMTAtMjZUMDM6MDI6NDVaIn3cLq58WoqF4cfwdtKZiUas4-p4PVbwDaF4sa0QConAH_hZWT726D8" // Gantilah dengan token PASETO yang sesuai
+	publicKey := "75127f0784fe57e03700c6a1ba46bcf304d912e77f87cc559835503e603a4347"
 	payload, _err := watoken.Decode(publicKey, tokenstring)
 	if _err != nil {
 		fmt.Println("expired token", _err)
@@ -33,7 +33,7 @@ func TestValidateToken(t *testing.T) {
 
 // Hash Pass
 func TestGeneratePasswordHash(t *testing.T) {
-	password := "kepoah"
+	password := "bisabis15"
 	hash, _ := HashPassword(password) // ignore error for the sake of simplicity
 	fmt.Println("Password:", password)
 	fmt.Println("Hash:    ", hash)
@@ -46,10 +46,10 @@ func TestHashFunction(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "wegotour")
 	var userdata User
 	userdata.Username = "daffa"
-	userdata.Password = "kepoah"
+	userdata.Password = "pwnyapahayoh"
 
 	filter := bson.M{"username": userdata.Username}
-	res := atdb.GetOneDoc[User](mconn, "user", filter)
+	res := atdb.GetOneDoc[User](mconn, "admin", filter)
 	fmt.Println("Mongo User Result: ", res)
 	hash, _ := HashPassword(userdata.Password)
 	fmt.Println("Hash Password : ", hash)
@@ -61,10 +61,10 @@ func TestHashFunction(t *testing.T) {
 func TestIsPasswordValid(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "wegotour")
 	var userdata User
-	userdata.Username = "daffa"
-	userdata.Password = "kepoah"
+	userdata.Username = "prisyahaura"
+	userdata.Password = "bisabis15"
 
-	anu := IsPasswordValid(mconn, "user", userdata)
+	anu := IsPasswordValid(mconn, "admin", userdata)
 	fmt.Println(anu)
 }
 
@@ -72,9 +72,9 @@ func TestIsPasswordValid(t *testing.T) {
 func TestInsertUser(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "wegotour")
 	var userdata User
-	userdata.Username = "daffa"
-	userdata.Password = "kepoah"
+	userdata.Username = "prisyahaura"
+	userdata.Password = "bisabis15"
 
-	nama := InsertUser(mconn, "user", userdata)
+	nama := InsertUser(mconn, "admin", userdata)
 	fmt.Println(nama)
 }
