@@ -19,7 +19,7 @@ func TestGeneratePrivateKeyPaseto(t *testing.T) {
 }
 func TestValidateToken(t *testing.T) {
 	tokenstring := "eyJleHAiOiIyMDIzLTEwLTI2VDA1OjAyOjQ1WiIsImlhdCI6IjIwMjMtMTAtMjZUMDM6MDI6NDVaIiwiaWQiOiJkYWZmYSIsIm5iZiI6IjIwMjMtMTAtMjZUMDM6MDI6NDVaIn3cLq58WoqF4cfwdtKZiUas4-p4PVbwDaF4sa0QConAH_hZWT726D8" // Gantilah dengan token PASETO yang sesuai
-	publicKey := "75127f0784fe57e03700c6a1ba46bcf304d912e77f87cc559835503e603a4347"
+	publicKey := "34984c89d5553bd07ced0b9ed6306cc010418a1758fae39e92bfce521ee7b44e"
 	payload, _err := watoken.Decode(publicKey, tokenstring)
 	if _err != nil {
 		fmt.Println("expired token", _err)
@@ -73,8 +73,8 @@ func TestInsertUser(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "wegotour")
 	var userdata User
 	userdata.Username = "prisyahaura"
-	userdata.Password = "bisabis15"
+	userdata.Password = "picaw"
 
-	nama := InsertUser(mconn, "admin", userdata)
+	nama := InsertUser(mconn, "user", userdata)
 	fmt.Println(nama)
 }

@@ -10,10 +10,10 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func GCFPostHandler(PASETOPRIVATEKEYENV, MONGOCONNSTRINGENV, dbname, collectionname string, r *http.Request) string {
+func GCFPostHandler(PASETOPRIVATEKEY, MONGOSTRING, dbname, collectionname string, r *http.Request) string {
 	var Response Credential
 	Response.Status = false
-	mconn := SetConnection(MONGOCONNSTRINGENV, dbname)
+	mconn := SetConnection(MONGOSTRING, dbname)
 	var datauser User
 	err := json.NewDecoder(r.Body).Decode(&datauser)
 	if err != nil {
@@ -21,7 +21,7 @@ func GCFPostHandler(PASETOPRIVATEKEYENV, MONGOCONNSTRINGENV, dbname, collectionn
 	} else {
 		if IsPasswordValid(mconn, collectionname, datauser) {
 			Response.Status = true
-			tokenstring, err := watoken.Encode(datauser.Username, os.Getenv(PASETOPRIVATEKEYENV))
+			tokenstring, err := watoken.Encode(datauser.Username, os.Getenv(PASETOPRIVATEKEY))
 			if err != nil {
 				Response.Message = "Gagal Encode Token : " + err.Error()
 			} else {
@@ -45,5 +45,5 @@ func InsertUser(db *mongo.Database, collection string, userdata User) string {
 	hash, _ := HashPassword(userdata.Password)
 	userdata.Password = hash
 	atdb.InsertOneDoc(db, collection, userdata)
-	return "Ini username : " + userdata.Username + "ini password : " + userdata.Password
+	return "Ini username : " + userdata.Username + " ini password : " + userdata.Password
 }
