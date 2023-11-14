@@ -8,10 +8,10 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func SetConnection(MONGOCONNSTRINGENV, dbname string) *mongo.Database {
+func SetConnection(MONGOCONNSTRING, dbname string) *mongo.Database {
 	var DBmongoinfo = atdb.DBInfo{
 		// DBString: "mongodb+srv://admin:admin@projectexp.pa7k8.gcp.mongodb.net", //os.Getenv(MONGOCONNSTRINGENV),
-		DBString: os.Getenv(MONGOCONNSTRINGENV),
+		DBString: os.Getenv(MONGOCONNSTRING),
 		DBName:   dbname,
 	}
 	return atdb.MongoConnect(DBmongoinfo)
