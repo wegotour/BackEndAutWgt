@@ -9,6 +9,25 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
+func TestCreateNewUserRole(t *testing.T) {
+	var userdata User
+	userdata.Email = "prisyahaura15@gmail.com"
+	userdata.Password = "picaw"
+	userdata.Role = "user"
+	mconn := SetConnection("MONGOSTRING", "wegotour")
+	CreateNewUserRole(mconn, "user", userdata)
+}
+
+func TestCreateNewAdminRole(t *testing.T) {
+	var admindata Admin
+
+	admindata.Email = "1214060@std.ulbi.ac.id"
+	admindata.Password = "admin123"
+	admindata.Role = "admin99"
+	mconn := SetConnection("MONGOSTRING", "wegotour")
+	CreateNewAdminRole(mconn, "admin", admindata)
+}
+
 // PASETO
 func TestGeneratePrivateKeyPaseto(t *testing.T) {
 	privateKey, publicKey := watoken.GenerateKey()
@@ -45,10 +64,10 @@ func TestGeneratePasswordHash(t *testing.T) {
 func TestHashFunction(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "wegotour")
 	var userdata User
-	userdata.Username = "daffa"
+	userdata.Email = "daffa"
 	userdata.Password = "pwnyapahayoh"
 
-	filter := bson.M{"username": userdata.Username}
+	filter := bson.M{"Email": userdata.Email}
 	res := atdb.GetOneDoc[User](mconn, "admin", filter)
 	fmt.Println("Mongo User Result: ", res)
 	hash, _ := HashPassword(userdata.Password)
@@ -61,7 +80,7 @@ func TestHashFunction(t *testing.T) {
 func TestIsPasswordValid(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "wegotour")
 	var userdata User
-	userdata.Username = "prisyahaura"
+	userdata.Email = "prisyahaura"
 	userdata.Password = "bisabis15"
 
 	anu := IsPasswordValid(mconn, "admin", userdata)
@@ -72,9 +91,20 @@ func TestIsPasswordValid(t *testing.T) {
 func TestInsertUser(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "wegotour")
 	var userdata User
-	userdata.Username = "prisyahaura"
+	userdata.Email = "prisyahaura"
 	userdata.Password = "picaw"
 
 	nama := InsertUser(mconn, "user", userdata)
+	fmt.Println(nama)
+}
+
+// Admin
+func TestInsertUserAdmin(t *testing.T) {
+	mconn := SetConnection("MONGOSTRING", "wegotour")
+	var userdata User
+	userdata.Email = "prisyahaura"
+	userdata.Password = "picaw"
+
+	nama := InsertUser(mconn, "adin", userdata)
 	fmt.Println(nama)
 }
