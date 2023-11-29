@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"os"
-	"regexp"
 
 	"github.com/aiteung/atdb"
 	"github.com/whatsauth/watoken"
@@ -86,30 +85,6 @@ func CreateAdmin(mongoconn *mongo.Database, collection string, admindata Admin) 
 func GetNameAndPassowrd(mongoconn *mongo.Database, collection string) []User {
 	user := atdb.GetAllDoc[[]User](mongoconn, collection)
 	return user
-}
-
-func GetEmailAndPassword(mongoconn *mongo.Database, collection string) []User {
-	users := atdb.GetAllDoc[[]User](mongoconn, collection)
-	validEmailUsers := make([]User, 0)
-
-	for _, user := range users {
-		if CheckEmailFormat(user.Email) {
-			validEmailUsers = append(validEmailUsers, user)
-		}
-	}
-	return validEmailUsers
-}
-
-func GetEmailAndPasswordAdmin(mongoconn *mongo.Database, collection string) []Admin {
-	admins := atdb.GetAllDoc[[]Admin](mongoconn, collection)
-	validEmailAdmin := make([]Admin, 0)
-
-	for _, admin := range admins {
-		if CheckEmailFormat(admin.Email) {
-			validEmailAdmin = append(validEmailAdmin, admin)
-		}
-	}
-	return validEmailAdmin
 }
 
 func CreateNewUserRole(mongoconn *mongo.Database, collection string, userdata User) interface{} {
@@ -314,12 +289,4 @@ func InsertAdmin(db *mongo.Database, collection string, userdata User) string {
 	userdata.Password = hash
 	atdb.InsertOneDoc(db, collection, userdata)
 	return "Email : " + userdata.Email + "\nPassword : " + userdata.Password
-}
-
-// checkemail untuk kampus ulbi
-func CheckEmailFormat(email string) bool {
-	// Regular expression pattern for email validation including npm@std.ulbi.ac.id format
-	emailRegexPattern := `^[a-zA-Z0-9._%+-]+@std\.ulbi\.ac\.id$`
-	match, _ := regexp.MatchString(emailRegexPattern, email)
-	return match
 }
