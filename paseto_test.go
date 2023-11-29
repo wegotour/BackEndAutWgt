@@ -11,7 +11,7 @@ import (
 
 func TestCreateNewUserRole(t *testing.T) {
 	var userdata User
-	userdata.Email = "prisyahaura15@gmail.com"
+	userdata.Email = "prisyahaura@gmail.com"
 	userdata.Password = "picaw"
 	userdata.Role = "user"
 	mconn := SetConnection("MONGOSTRING", "wegotour")
@@ -21,17 +21,17 @@ func TestCreateNewUserRole(t *testing.T) {
 func TestCreateNewAdminRole(t *testing.T) {
 	var admindata Admin
 
-	admindata.Email = "1214060@std.ulbi.ac.id"
-	admindata.Password = "admin123"
-	admindata.Role = "admin99"
+	admindata.Email = "prisyahaura@gmail.com"
+	admindata.Password = "picaw"
+	admindata.Role = "admin"
 	mconn := SetConnection("MONGOSTRING", "wegotour")
 	CreateNewAdminRole(mconn, "admin", admindata)
 }
 
 func CreateNewUserToken(t *testing.T) {
 	var userdata User
-	userdata.Email = "faisalsidiq@gmail.com"
-	userdata.Password = "sankuy"
+	userdata.Email = "prisyahaura@gmail.com"
+	userdata.Password = "picaw"
 	userdata.Role = "user"
 
 	// Create a MongoDB connection
@@ -47,8 +47,8 @@ func CreateNewUserToken(t *testing.T) {
 
 func CreateNewAdminToken(t *testing.T) {
 	var admindata User
-	admindata.Email = "1214060@std.ulbi.ac.id"
-	admindata.Password = "admin123"
+	admindata.Email = "prisyahaura@gmail.com"
+	admindata.Password = "picaw"
 	admindata.Role = "user"
 
 	// Create a MongoDB connection
@@ -65,8 +65,8 @@ func CreateNewAdminToken(t *testing.T) {
 func TestGFCPostHandlerUser(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "wegotour")
 	var userdata User
-	userdata.Email = "faisal"
-	userdata.Password = "sankuy"
+	userdata.Email = "prisyahaura@gmail.com"
+	userdata.Password = "picaw"
 	userdata.Role = "user"
 	CreateNewUserRole(mconn, "user", userdata)
 }
@@ -104,7 +104,7 @@ func TestValidateToken(t *testing.T) {
 
 // Hash Pass
 func TestGeneratePasswordHash(t *testing.T) {
-	password := "bisabis15"
+	password := "picaw"
 	hash, _ := HashPassword(password) // ignore error for the sake of simplicity
 	fmt.Println("Password:", password)
 	fmt.Println("Hash:    ", hash)
@@ -114,7 +114,7 @@ func TestGeneratePasswordHash(t *testing.T) {
 }
 
 func TestGenerateAdminPasswordHash(t *testing.T) {
-	password := "admin123"
+	password := "picaw"
 	hash, _ := HashPassword(password) // ignore error for the sake of simplicity
 
 	fmt.Println("Password:", password)
@@ -126,8 +126,8 @@ func TestGenerateAdminPasswordHash(t *testing.T) {
 func TestHashFunction(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "wegotour")
 	var userdata User
-	userdata.Email = "daffa"
-	userdata.Password = "pwnyapahayoh"
+	userdata.Email = "prisyahaura@gmail.com"
+	userdata.Password = "picaw"
 
 	filter := bson.M{"Email": userdata.Email}
 	res := atdb.GetOneDoc[User](mconn, "admin", filter)
@@ -142,8 +142,8 @@ func TestHashFunction(t *testing.T) {
 func TestIsPasswordValid(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "wegotour")
 	var userdata User
-	userdata.Email = "prisyahaura"
-	userdata.Password = "bisabis15"
+	userdata.Email = "prisyahaura@gmail.com"
+	userdata.Password = "picaw"
 
 	anu := IsPasswordValid(mconn, "admin", userdata)
 	fmt.Println(anu)
@@ -153,7 +153,7 @@ func TestIsPasswordValid(t *testing.T) {
 func TestInsertUser(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "wegotour")
 	var userdata User
-	userdata.Email = "prisyahaura"
+	userdata.Email = "prisyahaura@gmail.com"
 	userdata.Password = "picaw"
 
 	nama := InsertUser(mconn, "user", userdata)
@@ -163,8 +163,8 @@ func TestInsertUser(t *testing.T) {
 func TestUserFix(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "wegotour")
 	var userdata User
-	userdata.Email = "faisalsidiq14@gmail.com"
-	userdata.Password = "sankuy"
+	userdata.Email = "prisyahaura@gmail.com"
+	userdata.Password = "picaw"
 	userdata.Role = "user"
 	CreateUser(mconn, "user", userdata)
 }
@@ -173,18 +173,18 @@ func TestUserFix(t *testing.T) {
 func TestInsertUserAdmin(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "wegotour")
 	var userdata User
-	userdata.Email = "prisyahaura"
+	userdata.Username = "prisyahaura@gmail.com"
 	userdata.Password = "picaw"
 
-	nama := InsertUser(mconn, "adin", userdata)
+	nama := InsertUser(mconn, "admin", userdata)
 	fmt.Println(nama)
 }
 
 func TestAdminFix(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "wegotour")
 	var admindata User
-	admindata.Email = "11214041@std.ulbi.ac.id"
-	admindata.Password = "admin123"
+	admindata.Email = "prisyahaura@gmail.com"
+	admindata.Password = "picaw"
 	admindata.Role = "admin"
 	CreateUser(mconn, "user", admindata)
 }
@@ -192,8 +192,8 @@ func TestAdminFix(t *testing.T) {
 func TestIsAdminPasswordValid(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "wegotour")
 	var admindata User
-	admindata.Email = "11214041@std.ulbi.ac.id"
-	admindata.Password = "admin123"
+	admindata.Email = "prisyahaura@gmail.com"
+	admindata.Password = "picaw"
 
 	anu := IsPasswordValid(mconn, "user", admindata)
 	fmt.Println(anu)
@@ -202,8 +202,8 @@ func TestIsAdminPasswordValid(t *testing.T) {
 func TestHashAdminFunction(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "wegotour")
 	var admindata Admin
-	admindata.Email = "admin@gmail.com"
-	admindata.Password = "admin123"
+	admindata.Email = "prisyahaura@gmail.com"
+	admindata.Password = "picaw"
 
 	filter := bson.M{"email": admindata.Email}
 	res := atdb.GetOneDoc[User](mconn, "admin", filter)
