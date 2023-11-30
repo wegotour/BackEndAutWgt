@@ -251,6 +251,13 @@ func CreateAdminAndAddToken(privateKeyEnv string, mongoconn *mongo.Database, col
 	return nil
 }
 
+func InsertdataUser(MongoConn *mongo.Database, username, password string) (InsertedID interface{}) {
+	req := new(RegisterStruct)
+	req.Username = username
+	req.Password = password
+	return InsertOneDoc(MongoConn, "user", req)
+}
+
 func InsertUserdata(MongoConn *mongo.Database, email, role, password string) (InsertedID interface{}) {
 	req := new(User)
 	// req.Username = username
