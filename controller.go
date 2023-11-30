@@ -405,7 +405,7 @@ func Login(Privatekey, MongoEnv, dbname, Colname string, r *http.Request) string
 		resp.Message = "error parsing application/json: " + err.Error()
 	} else {
 		if IsPasswordValid(mconn, Colname, datauser) {
-			tokenstring, err := watoken.Encode(datauser.Email, os.Getenv(Privatekey))
+			tokenstring, err := watoken.Encode(datauser.Username, os.Getenv(Privatekey))
 			if err != nil {
 				resp.Message = "Gagal Encode Token : " + err.Error()
 			} else {
