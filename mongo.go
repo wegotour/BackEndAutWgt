@@ -189,7 +189,7 @@ func FindAdminByEmail(mongoconn *mongo.Database, collection string, email string
 }
 
 func IsPasswordValid(mongoconn *mongo.Database, collection string, userdata User) bool {
-	filter := bson.M{"email": userdata.Email}
+	filter := bson.M{"username": userdata.Username}
 	res := atdb.GetOneDoc[User](mongoconn, collection, filter)
 	return CheckPasswordHash(userdata.Password, res.Password)
 }
