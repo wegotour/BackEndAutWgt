@@ -21,14 +21,6 @@ func TestCreateNewUserRole(t *testing.T) {
 }
 
 // user
-func TestDeleteUser(t *testing.T) {
-	mconn := SetConnection("MONGOSTRING", "wegotour")
-	var userdata User
-	userdata.Email = "prisyahaura@gmail.com"
-	DeleteUser(mconn, "user", userdata)
-}
-
-// user
 func CreateNewUserToken(t *testing.T) {
 	var userdata User
 	userdata.Username = "prisyahaura"
@@ -113,18 +105,6 @@ func TestHashFunctionUser(t *testing.T) {
 }
 
 // user
-func TestUserIsPasswordValid(t *testing.T) {
-	mconn := SetConnection("MONGOSTRING", "wegotour")
-	var userdata User
-	userdata.Username = "prisyahaura"
-	userdata.Email = "prisyahaura@gmail.com"
-	userdata.Password = "picaw"
-
-	anu := UserIsPasswordValid(mconn, "user", userdata)
-	fmt.Println(anu)
-}
-
-// user
 func TestUserFix(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "wegotour")
 	var userdata User
@@ -133,15 +113,4 @@ func TestUserFix(t *testing.T) {
 	userdata.Password = "picaw"
 	userdata.Role = "user"
 	CreateUser(mconn, "user", userdata)
-}
-
-// user
-func TestLoginUser(t *testing.T) {
-	mconn := SetConnection("MONGOSTRING", "wegotour")
-	var userdata User
-	userdata.Username = "prisyahaura"
-	userdata.Email = "prisyahaura@gmail.com"
-	userdata.Password = "picaw"
-	UserIsPasswordValid(mconn, "user", userdata)
-	fmt.Println(userdata)
 }

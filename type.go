@@ -88,9 +88,10 @@ type Contact struct {
 }
 
 type Payload struct {
-	Id   primitive.ObjectID `json:"id"`
-	Role string             `json:"role"`
-	Exp  time.Time          `json:"exp"`
-	Iat  time.Time          `json:"iat"`
-	Nbf  time.Time          `json:"nbf"`
+	Admin  string    `json:"admin"`
+	Ticket string    `json:"ticket"`
+	Role   string    `json:"role"`
+	Exp    time.Time `json:"exp"`
+	Iat    time.Time `json:"iat"`
+	Nbf    time.Time `json:"nbf"`
 }
