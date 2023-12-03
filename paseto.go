@@ -10,7 +10,7 @@ import (
 )
 
 // <--- ini Login Email & Register Email --->
-func LoginUser(Privatekey, MongoEnv, dbname, Colname string, r *http.Request) string {
+func Login(Privatekey, MongoEnv, dbname, Colname string, r *http.Request) string {
 	var resp Credential
 	mconn := SetConnection(MongoEnv, dbname)
 	var dataadmin Admin
@@ -47,7 +47,7 @@ func ReturnStringStruct(Data any) string {
 
 func Register(Mongoenv, dbname string, r *http.Request) string {
 	resp := new(Credential)
-	admindata := new(User)
+	admindata := new(Admin)
 	resp.Status = false
 	conn := SetConnection(Mongoenv, dbname)
 	err := json.NewDecoder(r.Body).Decode(&admindata)
