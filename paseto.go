@@ -123,7 +123,7 @@ func GCFDeleteTicket(publickey, MONGOCONNSTRINGENV, dbname, colladmin, collticke
 	} else {
 		// Process the request with the "Login" token
 		checktoken := watoken.DecodeGetId(os.Getenv(publickey), gettoken)
-		admindata.Username = checktoken
+		admindata.Email = checktoken
 		if checktoken == "" {
 			respon.Message = "Kamu kayaknya belum punya akun"
 		} else {
