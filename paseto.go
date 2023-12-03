@@ -208,8 +208,8 @@ func GCFGetAllTickett(publickey, Mongostring, dbname, colname string, r *http.Re
 			resp.Message = "Kamu kayaknya belum punya akun"
 		} else {
 			koneksyen := SetConnection(Mongostring, dbname)
-			datahp := GetAllTicket(koneksyen, colname)
-			dap, _ := json.Marshal(datahp)
+			dataticket := GetAllTicket(koneksyen, colname)
+			dap, _ := json.Marshal(dataticket)
 			resp.Status = true
 			resp.Message = "Data Berhasil diambil"
 			resp.Token = string(dap)
