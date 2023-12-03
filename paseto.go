@@ -74,7 +74,7 @@ func GCFInsertTicket(publickey, MONGOCONNSTRINGENV, dbname, colladmin, collticke
 	response.Status = false
 	mconn := SetConnection(MONGOCONNSTRINGENV, dbname)
 	var admindata Admin
-	gettoken := r.Header.Get("token")
+	gettoken := r.Header.Get("Login")
 	if gettoken == "" {
 		response.Message = "Header Login Not Exist"
 	} else {
@@ -117,7 +117,7 @@ func GCFDeleteTicket(publickey, MONGOCONNSTRINGENV, dbname, colladmin, collticke
 	mconn := SetConnection(MONGOCONNSTRINGENV, dbname)
 	var admindata Admin
 
-	gettoken := r.Header.Get("token")
+	gettoken := r.Header.Get("Login")
 	if gettoken == "" {
 		respon.Message = "Header Login Not Exist"
 	} else {
@@ -153,7 +153,7 @@ func GCFUpdateTicket(publickey, MONGOCONNSTRINGENV, dbname, colladmin, collticke
 	mconn := SetConnection(MONGOCONNSTRINGENV, dbname)
 	var admindata Admin
 
-	gettoken := r.Header.Get("token")
+	gettoken := r.Header.Get("Login")
 	if gettoken == "" {
 		response.Message = "Header Login Not Exist"
 	} else {
