@@ -170,7 +170,7 @@ func GCFUpdateTicket(publickey, MONGOCONNSTRINGENV, dbname, colladmin, collticke
 					response.Message = "Error parsing application/json: " + err.Error()
 
 				} else {
-					UpdatedTicket(mconn, collticket, bson.M{"id": dataticket.ID}, dataticket)
+					UpdatedTicket(mconn, collticket, bson.M{"id": dataticket.Nomorid}, dataticket)
 					response.Status = true
 					response.Message = "Berhasil Update Ticket"
 					GCFReturnStruct(CreateResponse(true, "Success Update Ticket", dataticket))
