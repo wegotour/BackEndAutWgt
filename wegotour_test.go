@@ -54,10 +54,10 @@ func TestGFCPostHandlerUser(t *testing.T) {
 func TestInsertTicket(t *testing.T) {
 	mconn := SetConnection("MONGOSTRING", "wegotour")
 	var ticketdata Ticket
-	ticketdata.Nomorid = 1
-	ticketdata.Title = "garut"
-	ticketdata.Description = "waw garut keren banget"
-	ticketdata.Image = "https://images3.alphacoders.com/165/thumb-1920-165265.jpg"
+	ticketdata.Nomorid = 20
+	ticketdata.Title = "Gunung Cikurai"
+	ticketdata.Description = "Gunung dengan ketinggian 2500+mdpl"
+	ticketdata.Image = "https://unsplash.it/1200/900?randoms"
 	CreateNewTicket(mconn, "ticket", ticketdata)
 }
 
